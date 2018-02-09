@@ -18,16 +18,40 @@ module Zoop
       @path         = path
       @method       = method
       @full_api_url = options[:full_api_url]
-      @parameters   = options[:params]  || Hash.new
       @query        = options[:query]   || Hash.new
+      @parameters   = options[:params]  || Hash.new
       @headers      = options[:headers] || Hash.new
     end
 
     def run
       response = RestClient::Request.execute request_params
       MultiJson.decode response.body
-    rescue
-      raise 'An error has occured.'
+    rescue RestClient::Exception => error
+      begin
+        parsed_error = MultiJson.decode error.http_body
+
+        if error.is_a? RestClient::ResourceNotFound
+          if parsed_error['errors']
+            raise Zoop::NotFound.new(parsed_error, request_params, error)
+          else
+            raise Zoop::NotFound.new(nil, request_params, error)
+          end
+        else
+          if parsed_error['errors']
+            raise Zoop::ValidationError.new parsed_error
+          else
+            raise Zoop::ResponseError.new(request_params, error)
+          end
+        end
+      rescue MultiJson::ParseError
+        raise Zoop::ResponseError.new(request_params, error)
+      end
+    rescue MultiJson::ParseError
+      raise Zoop::ResponseError.new(request_params, response)
+    rescue SocketError
+      raise Zoop::ConnectionError.new $!
+    rescue RestClient::ServerBrokeConnection
+      raise Zoop::ConnectionError.new $!
     end
 
     def self.get(url, options={})
@@ -64,7 +88,7 @@ module Zoop
     def full_api_url_with_marketplace
       url = Zoop.api_endpoint + "/marketplaces/#{Zoop.marketplace_id}" + path
 
-      if query.present?
+      if !query.empty?
         url += '?' + URI.encode_www_form(query)
       end
 

@@ -1,4 +1,10 @@
-require "zoop/version"
+require_relative 'zoop/version'
+require_relative 'zoop/errors'
+require_relative 'zoop/request'
+
+Dir[File.expand_path('../zoop/resources/*.rb', __FILE__)].map do |path|
+  require path
+end
 
 module Zoop
   class << self
