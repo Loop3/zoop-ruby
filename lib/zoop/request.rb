@@ -88,7 +88,7 @@ module Zoop
     def full_api_url_with_marketplace
       url = Zoop.api_endpoint + "/marketplaces/#{Zoop.marketplace_id}" + path
 
-      if !query.empty?
+      if query.present?
         url += '?' + URI.encode_www_form(query)
       end
 
