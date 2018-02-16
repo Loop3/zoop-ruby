@@ -1,4 +1,9 @@
+require 'set'
+
 require_relative 'zoop/version'
+require_relative 'zoop/core_ext'
+require_relative 'zoop/object'
+require_relative 'zoop/model'
 require_relative 'zoop/errors'
 require_relative 'zoop/request'
 
