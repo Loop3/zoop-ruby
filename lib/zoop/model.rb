@@ -11,6 +11,11 @@ module Zoop
       self
     end
 
+    def destroy
+      update Zoop::Request.delete(url).run
+      self
+    end
+
     def url(*params)
       raise RequestError.new('Invalid ID') unless id.present?
       self.class.url CGI.escape(id.to_s), *params
