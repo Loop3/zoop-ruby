@@ -1,8 +1,9 @@
 require 'bundler/setup'
-require 'pry'
+require 'rspec'
 require 'factory_bot'
 require 'cpf_faker'
 require 'zoop'
+require 'pry'
 
 require_relative 'support/zoop_helper'
 
@@ -13,11 +14,9 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ZoopHelper
 
+  FactoryBot.find_definitions
+
   config.expect_with :rspec do |c|
     c.syntax = :expect
-  end
-
-  config.before(:suite) do
-    FactoryBot.find_definitions
   end
 end
