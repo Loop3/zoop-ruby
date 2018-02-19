@@ -7,7 +7,7 @@ module Zoop
     attr_accessor :path, :method, :parameters, :headers, :query, :full_api_url
 
     DEFAULT_HEADERS = {
-      'Content-Type' => 'application/json; charset=utf8',
+      'Content-Type' => 'application/json',
       'Accept'       => 'application/json',
       'User-Agent'   => "zoop-ruby/#{Zoop::VERSION}"
     }
@@ -31,27 +31,23 @@ module Zoop
         parsed_error = MultiJson.decode error.http_body
 
         if error.is_a? RestClient::ResourceNotFound
-          if parsed_error['errors']
-            raise Zoop::NotFound.new(parsed_error, request_params, error)
-          else
-            raise Zoop::NotFound.new(nil, request_params, error)
-          end
+          raise Zoop::NotFound.new(parsed_error, request_params, error)
         else
-          if parsed_error['errors']
-            raise Zoop::ValidationError.new parsed_error
-          else
-            raise Zoop::ResponseError.new(request_params, error)
-          end
+          raise Zoop::ResponseError.new(request_params, parsed_error)
         end
       rescue MultiJson::ParseError
-        raise Zoop::ResponseError.new(request_params, error)
+        raise Zoop::ResponseError.new(request_params, error.http_body)
       end
     rescue MultiJson::ParseError
-      raise Zoop::ResponseError.new(request_params, response)
+      raise Zoop::ResponseError.new(request_params, response.body)
     rescue SocketError
       raise Zoop::ConnectionError.new $!
     rescue RestClient::ServerBrokeConnection
       raise Zoop::ConnectionError.new $!
+    end
+
+    def call
+      ZoopObject.convert run
     end
 
     def self.get(url, options={})

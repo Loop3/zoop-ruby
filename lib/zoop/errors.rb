@@ -19,7 +19,7 @@ module Zoop
 
     def initialize(request_params, error)
       @request_params, @error = request_params, error
-      super @error.message
+      super @error
     end
   end
 
@@ -31,33 +31,4 @@ module Zoop
     end
   end
 
-  class ValidationError < ZoopError
-    attr_reader :response, :errors
-
-    def initialize(response)
-      @response = response
-      @errors   = response['errors'].map do |error|
-        params = error.values_at('message', 'parameter_name', 'type', 'url')
-        ParamError.new(*params)
-      end
-      super @errors.map(&:message).join(', ')
-    end
-
-    def to_h
-      @errors.map(&:to_h)
-    end
-  end
-
-  class ParamError < ZoopError
-    attr_reader :parameter_name, :type, :url
-
-    def initialize(message, parameter_name, type, url)
-      @parameter_name, @type, @url = parameter_name, type, url
-      super message
-    end
-
-    def to_h
-      { parameter_name: parameter_name , type: type , message: message }
-    end
-  end
 end
