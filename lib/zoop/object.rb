@@ -110,7 +110,7 @@ module Zoop
         when Array
           response.map{ |i| convert i }
         when Hash
-          resource_class_for(response['object']).new(response)
+          resource_class_for(response['resource']).new(response)
         else
           response
         end

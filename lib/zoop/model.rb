@@ -28,14 +28,6 @@ module Zoop
       end
       alias :find :find_by_id
 
-      def find_by(params = Hash.new, page = nil, count = nil)
-        params = extract_page_count_or_params(page, count, **params)
-        raise RequestError.new('Invalid page count') if params[:page] < 1 or params[:count] < 1
-
-        Zoop::Request.get(url, params: params).call
-      end
-      alias :find_by_hash :find_by
-
       def url(*params)
         ["/#{ CGI.escape underscored_class_name }s", *params].join '/'
       end
