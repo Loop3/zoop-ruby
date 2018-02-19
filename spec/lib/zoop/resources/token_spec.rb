@@ -31,4 +31,13 @@ RSpec.describe Zoop::Token do
       expect(token.id).to eq zoop_response.fetch(:id)
     end
   end
+
+  describe '#destroy' do
+
+    let(:card_token) { build :card_token }
+
+    it 'raise error when try destroy' do
+      expect { card_token.destroy }.to raise_error(NotImplementedError)
+    end
+  end
 end

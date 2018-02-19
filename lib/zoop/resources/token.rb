@@ -6,6 +6,10 @@ module Zoop
       super
     end
 
+    def destroy
+      raise NotImplementedError
+    end
+
     class << self
 
       def url(card_number = nil)
