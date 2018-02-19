@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'pry'
 require 'factory_bot'
+require 'cpf_faker'
 require 'zoop'
 
 require_relative 'support/zoop_helper'
