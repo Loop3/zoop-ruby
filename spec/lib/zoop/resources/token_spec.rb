@@ -26,7 +26,7 @@ RSpec.describe Zoop::Token do
       allow(zoop_request).to receive(:run).and_return(zoop_response)
     end
 
-    it 'create an zoop token' do
+    it 'create a zoop token' do
       token = zoop_token.create
       expect(token.id).to eq zoop_response.fetch(:id)
     end

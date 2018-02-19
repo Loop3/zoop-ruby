@@ -2,9 +2,8 @@ module Zoop
   class Token < Zoop::Model
 
     def create
-      url = self.class.url(self.card_number)
-      update Zoop::Request.post(url, params: to_hash).run
-      self
+      @custom_url = self.class.url(self.card_number)
+      super
     end
 
     class << self

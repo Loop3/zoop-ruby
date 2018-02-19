@@ -2,7 +2,7 @@ module Zoop
   class Model < ZoopObject
 
     def create
-      update Zoop::Request.post(self.class.url, params: to_hash).run
+      update Zoop::Request.post(@custom_url || self.class.url, params: to_hash).run
       self
     end
 
