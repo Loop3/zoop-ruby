@@ -2,7 +2,7 @@ module Zoop
   class Token < Zoop::Model
 
     def create
-      @custom_url = self.class.url(self.card_number)
+      @custom_url = self.class.url(self.card_number.present?)
       super
     end
 
@@ -12,11 +12,11 @@ module Zoop
 
     class << self
 
-      def url(card_number = nil)
-        if card_number.present?
-          '/cards/tokens'
-        else
-          '/bank_accounts/tokens'
+      def url(*params)
+        case params.first
+        when TrueClass then '/cards/tokens'
+        when FalseClass then '/bank_accounts/tokens'
+        else super(*params)
         end
       end
     end
