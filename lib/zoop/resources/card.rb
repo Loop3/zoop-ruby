@@ -1,4 +1,4 @@
 module Zoop
-  class Card < Zoop::Model
+  class Card < Zoop::PaymentMethodCommon
   end
 end

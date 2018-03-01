@@ -7,8 +7,6 @@ RSpec.describe Zoop::Seller do
     let(:zoop_response) { { id: 1 } }
 
     before do
-      setup_zoop
-
       zoop_request = instance_double('Zoop::Request')
       allow(Zoop::Request).to receive(:post).with('/sellers/individuals', params: individual_seller.attributes).and_return(zoop_request)
       allow(Zoop::Request).to receive(:post).with('/sellers/businesses', params: business_seller.attributes).and_return(zoop_request)

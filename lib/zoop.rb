@@ -6,6 +6,7 @@ require_relative 'zoop/object'
 require_relative 'zoop/model'
 require_relative 'zoop/errors'
 require_relative 'zoop/request'
+require_relative 'zoop/payment_method_common'
 
 Dir[File.expand_path('../zoop/resources/*.rb', __FILE__)].map do |path|
   require path

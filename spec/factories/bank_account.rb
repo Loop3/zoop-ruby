@@ -25,7 +25,12 @@ FactoryBot.define do
   end
 
   factory :association_bank_account_with_customer, class: Zoop::BankAccount do
-    customer { FactoryBot.build(:seller, :individual).create.id }
-    token { FactoryBot.build(:bank_account_token, :individual).create.id }
+    customer "1"
+    token "2"
+
+    trait :created do
+      customer { FactoryBot.build(:seller, :individual).create.id }
+      token { FactoryBot.build(:bank_account_token, :individual).create.id }
+    end
   end
 end

@@ -24,8 +24,6 @@ RSpec.describe Zoop::Token do
     let(:zoop_response) { { id: 1 } }
 
     before do
-      setup_zoop
-
       zoop_request = instance_double('Zoop::Request')
       allow(Zoop::Request).to receive(:post).with('/cards/tokens', params: zoop_token.attributes).and_return(zoop_request)
       allow(zoop_request).to receive(:run).and_return(zoop_response)

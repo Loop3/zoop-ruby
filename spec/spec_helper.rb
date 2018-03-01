@@ -5,7 +5,7 @@ require 'cpf_faker'
 require 'zoop'
 require 'pry'
 
-require_relative 'support/zoop_helper'
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 RSpec.configure do |config|
   # Disable RSpec exposing methods globally on `Module` and `main`

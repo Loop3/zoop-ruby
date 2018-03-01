@@ -12,7 +12,12 @@ FactoryBot.define do
   end
 
   factory :association_card_with_customer, class: Zoop::Card do
-    customer { FactoryBot.build(:buyer).create.id }
-    token { FactoryBot.build(:card_token).create.id }
+    customer "1"
+    token "2"
+
+    trait :created do
+      customer { FactoryBot.build(:buyer).create.id }
+      token { FactoryBot.build(:card_token).create.id }
+    end
   end
 end
