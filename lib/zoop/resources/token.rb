@@ -10,6 +10,15 @@ module Zoop
       raise NotImplementedError
     end
 
+    def associate(customer_id)
+      raise RequestError.new('Invalid Token ID') unless id.present?
+      payment_method.class.associate(customer: customer_id.to_s, token: id.to_s)
+    end
+
+    def payment_method
+      self.card || self.bank_account
+    end
+
     class << self
 
       def url(*params)
