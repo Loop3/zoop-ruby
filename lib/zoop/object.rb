@@ -48,7 +48,7 @@ module Zoop
       (attributes.keys - ['id', 'object']).sort.each do |key|
         attributes_str += " \033[1;33m#{key}:\033[0m#{self[key].inspect}" unless self[key].nil?
       end
-      "\033[1;31m#<#{self.class.name}:\033[0;32m#{id}#{attributes_str}\033[0m\033[0m\033[1;31m>\033[0;32m"
+      "\033[1;31m#<#{self.class.name}:\033[0;32m#{id}#{attributes_str}\033[0m\033[0m\033[1;31m>\033[0m"
     end
     alias :inspect :to_s
 
