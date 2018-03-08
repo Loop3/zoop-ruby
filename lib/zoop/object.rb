@@ -9,7 +9,7 @@ module Zoop
     def initialize(response = {})
       @attributes         = Hash.new
       @unsaved_attributes = Set.new
-      update response
+      update_model response
     end
 
     def []=(key,value)
@@ -54,7 +54,7 @@ module Zoop
 
     protected
 
-    def update(attributes)
+    def update_model(attributes)
       removed_attributes = @attributes.keys - attributes.keys
 
       removed_attributes.each do |key|
