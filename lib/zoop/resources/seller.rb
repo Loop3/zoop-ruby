@@ -6,7 +6,7 @@ module Zoop
       super
     end
 
-    def update(params)
+    def update(params={})
       raise RequestError.new('Invalid ID') unless id.present?
       @custom_url = self.class.url(mount_url, CGI.escape(id.to_s))
       super
@@ -16,6 +16,14 @@ module Zoop
       raise RequestError.new('Invalid ID') unless id.present?
       @custom_url = self.class.url(mount_url, CGI.escape(id.to_s))
       super
+    end
+
+    def receiving_policy
+      Zoop::Request.get(url 'receiving_policy').call
+    end
+
+    def update_receiving_policy(params={})
+      Zoop::Request.post(url('receiving_policy'), params: params).call
     end
 
     private

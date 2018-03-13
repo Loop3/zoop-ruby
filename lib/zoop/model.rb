@@ -6,7 +6,7 @@ module Zoop
       self
     end
 
-    def update(params)
+    def update(params={})
       update_model Zoop::Request.put(@custom_url || url, params: params).run
       self
     end
