@@ -2,9 +2,23 @@ module Zoop
   class Transaction < Zoop::Model
     alias :charge :create
 
-    def capture
+    def initialize(response = {})
+      super(response)
+
+      self.currency         ||= 'BRL'
+      self.payment_type     ||= 'credit'
+      self.capture          ||= true
+    end
+
+    def capture!
       params = { amount: amount.convert_to_cents, on_behalf_of: on_behalf_of }
       update_model Zoop::Request.post(url('capture'), params: params).run
+      self
+    end
+
+    def refund
+      params = { amount: amount.convert_to_cents, on_behalf_of: on_behalf_of }
+      update_model Zoop::Request.post(url('void'), params: params).run
       self
     end
 
