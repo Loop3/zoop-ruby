@@ -4,7 +4,7 @@ require 'multi_json'
 
 module Zoop
   class Request
-    attr_accessor :path, :method, :parameters, :headers, :query, :full_api_url
+    attr_accessor :path, :method, :parameters, :headers, :query, :full_api_url, :no_encode
 
     DEFAULT_HEADERS = {
       'Content-Type' => 'application/json',
@@ -21,6 +21,7 @@ module Zoop
       @query        = options[:query]   || Hash.new
       @parameters   = options[:params]  || Hash.new
       @headers      = options[:headers] || Hash.new
+      @no_encode    = options[:no_encode]
     end
 
     def run
@@ -74,7 +75,7 @@ module Zoop
         user:         Zoop.user_auth,
         password:     Zoop.password_auth,
         url:          full_api_url || full_api_url_with_marketplace,
-        payload:      MultiJson.encode(parameters),
+        payload:      no_encode.present? ? parameters : MultiJson.encode(parameters),
         open_timeout: Zoop.open_timeout,
         timeout:      Zoop.timeout,
         headers:      DEFAULT_HEADERS.merge(headers)
