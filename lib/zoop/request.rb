@@ -75,11 +75,11 @@ module Zoop
         user:         Zoop.user_auth,
         password:     Zoop.password_auth,
         url:          full_api_url || full_api_url_with_marketplace,
-        payload:      no_encode.present? ? parameters : MultiJson.encode(parameters),
+        payload:      formated_parameters,
         open_timeout: Zoop.open_timeout,
         timeout:      Zoop.timeout,
         headers:      DEFAULT_HEADERS.merge(headers)
-      }
+      }.deep_compact
     end
 
     def full_api_url_with_marketplace
@@ -90,6 +90,14 @@ module Zoop
       end
 
       url
+    end
+
+    def formated_parameters
+      if no_encode.present?
+        parameters
+      elsif parameters.present?
+        MultiJson.encode(parameters)
+      end
     end
   end
 end
