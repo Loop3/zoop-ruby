@@ -26,6 +26,10 @@ module Zoop
       Zoop::Request.post(url('receiving_policy'), params: params).call
     end
 
+    def documents
+      Zoop::Request.get( url 'documents' ).call
+    end
+
     def upload_documents(params={})
       Zoop::Request.post(url('documents'), params: params, no_encode: true).call
     end
