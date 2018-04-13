@@ -4,7 +4,7 @@ require 'multi_json'
 
 module Zoop
   class Request
-    attr_accessor :path, :method, :parameters, :headers, :query, :full_api_url, :no_encode
+    attr_accessor :path, :method, :parameters, :headers, :query, :full_api_url
 
     DEFAULT_HEADERS = {
       'Content-Type' => 'application/json',
@@ -21,7 +21,6 @@ module Zoop
       @query        = options[:query]   || Hash.new
       @parameters   = options[:params]  || Hash.new
       @headers      = options[:headers] || Hash.new
-      @no_encode    = options[:no_encode]
     end
 
     def run
@@ -93,7 +92,7 @@ module Zoop
     end
 
     def formated_parameters
-      if no_encode.present?
+      if parameters.include?(:file)
         parameters
       elsif parameters.present?
         MultiJson.encode(parameters)

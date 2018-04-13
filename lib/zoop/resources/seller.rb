@@ -31,7 +31,7 @@ module Zoop
     end
 
     def upload_documents(params={})
-      Zoop::Request.post(url('documents'), params: params, no_encode: true).call
+      Zoop::Request.post(url('documents'), params: params).call
     end
 
     private
