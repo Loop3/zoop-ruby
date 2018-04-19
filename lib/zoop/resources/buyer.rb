@@ -1,4 +1,4 @@
 module Zoop
-  class Buyer < Zoop::Model
+  class Buyer < Zoop::CustomerCommon
   end
 end

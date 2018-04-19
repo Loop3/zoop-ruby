@@ -1,5 +1,5 @@
 module Zoop
-  class Seller < Zoop::Model
+  class Seller < Zoop::CustomerCommon
 
     def create
       @custom_url = self.class.url(mount_url)

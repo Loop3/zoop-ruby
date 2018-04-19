@@ -8,6 +8,7 @@ require_relative 'zoop/nested_model'
 require_relative 'zoop/errors'
 require_relative 'zoop/request'
 require_relative 'zoop/payment_method_common'
+require_relative 'zoop/customer_common'
 
 Dir[File.expand_path('../zoop/resources/*.rb', __FILE__)].map do |path|
   require path
