@@ -11,7 +11,7 @@ module Zoop
 
         Zoop::Request.get(
           url('search'),
-          headers: { 'Content-type' => '' },
+          headers: { 'Content-Type' => '' },
           query: { document_type => raw_document }
         ).call
       end
