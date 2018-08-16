@@ -26,6 +26,10 @@ module Zoop
       Zoop::Request.get( url 'receivables' ).call
     end
 
+    def split_rules
+      Zoop::Request.get( url 'split_rules' ).call
+    end
+
     def destroy
       raise NotImplementedError
     end

@@ -34,6 +34,10 @@ module Zoop
       Zoop::Request.post(url('documents'), params: params).call
     end
 
+    def bank_accounts
+      Zoop::Request.get( url 'bank_accounts' ).call
+    end
+
     private
 
     def mount_url
