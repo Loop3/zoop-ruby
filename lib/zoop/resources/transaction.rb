@@ -2,6 +2,8 @@ module Zoop
   class Transaction < Zoop::Model
     alias :charge :create
 
+    attr_accessor :capture
+
     def initialize(response = {})
       super(response)
 
