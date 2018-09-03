@@ -38,6 +38,10 @@ module Zoop
       Zoop::Request.get( url 'bank_accounts' ).call
     end
 
+    def transactions
+      Zoop::Request.get( url 'transactions' ).call
+    end
+
     private
 
     def mount_url
