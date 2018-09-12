@@ -39,7 +39,7 @@ module Zoop
     end
 
     def transactions
-      Zoop::Request.get( url 'transactions' ).call
+      Zoop::Request.get(url('transactions'), headers: { 'Content-Type' => '' }).call
     end
 
     private
