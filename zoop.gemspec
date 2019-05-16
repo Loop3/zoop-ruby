@@ -23,10 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler',      '~> 2.0'
   spec.add_development_dependency 'rake',         '~> 10.0'
   spec.add_development_dependency 'rspec',        '~> 3.0'
-  spec.add_development_dependency 'factory_bot'
-  spec.add_development_dependency 'cpf_faker'
-  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'factory_bot',  '~> 0'
+  spec.add_development_dependency 'cpf_faker',    '~> 0'
+  spec.add_development_dependency 'pry',          '~> 0'
 
-  spec.add_dependency 'rest-client'
-  spec.add_dependency 'multi_json'
+  spec.add_dependency 'rest-client', '~> 0'
+  spec.add_dependency 'multi_json',  '~> 0'
 end
