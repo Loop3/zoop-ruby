@@ -38,8 +38,17 @@ module Zoop
       Zoop::Request.get( url 'bank_accounts' ).call
     end
 
+    def bank_account
+      return if self.default_credit.blank?
+      Zoop::BankAccount.find(self.default_credit)
+    end
+
     def transactions
       Zoop::Request.get(url('transactions'), headers: { 'Content-Type' => '' }).call
+    end
+
+    def balances
+      Zoop::Request.get( url 'balances' ).call
     end
 
     private
